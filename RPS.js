@@ -7,26 +7,51 @@ function getComputerChoice() {
     return items[random]
 }
 
-getComputerChoice();
+// getComputerChoice();
 
-function playerSelection() {
+function getPlayerSelection() {
     let playerChoice = "";
     let askCounter = 0
 
     const lowerCaseItems = items.map(element => {return element.toLowerCase();})
 
+    // loop until sensible input is given
     while (!lowerCaseItems.includes(playerChoice.toLowerCase())) {
-        if(askCounter == 0) {
+        if(askCounter === 0) {
             playerChoice = prompt("Please choose: Rock, Paper, Scissors?");
         } else {
             playerChoice = prompt("That isn't a valid choice, please choose: Rock, Paper, Scissors?")
         }
 
+        // Loop to get alternative question after initial input
         askCounter++;
     }
     
+    // rChange to proper case
+    playerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.substring(1).toLowerCase();
+
+    return playerChoice;
+
 }
 
-playerSelection();
 
 
+function playRound(playerSelection, computerSelection) {
+
+    if ((playerSelection === "Rock" && computerSelection === "Scissors")
+        || (playerSelection === "Paper" && computerSelection === "Rock")
+        || (playerSelection === "Scissors" && computerSelection === "Paper")) {
+            return "Congrats, you win!";
+    } else if (playerSelection === computerSelection) {
+        return "It's a draw!";
+    } else {
+        return `You Lose! ${computerSelection} beats ${playerSelection}`;
+    }   
+}
+
+
+
+const playerSelection = getPlayerSelection();
+const computerSelection = getComputerChoice();
+
+console.log(playRound(playerSelection, computerSelection))
