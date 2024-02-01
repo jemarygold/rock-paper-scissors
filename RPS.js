@@ -35,9 +35,7 @@ function getPlayerSelection() {
 }
 
 
-
 function playRound(playerSelection, computerSelection) {
-
     if ((playerSelection === "Rock" && computerSelection === "Scissors")
         || (playerSelection === "Paper" && computerSelection === "Rock")
         || (playerSelection === "Scissors" && computerSelection === "Paper")) {
@@ -50,8 +48,20 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
+function playGame() {
+    const numberOfGames = prompt("How many games would you like to play?")
 
-const playerSelection = getPlayerSelection();
-const computerSelection = getComputerChoice();
 
-console.log(playRound(playerSelection, computerSelection))
+
+    for (i=1; i<= numberOfGames; i++) {
+
+        const playerSelection = getPlayerSelection();
+        const computerSelection = getComputerChoice();
+
+        console.log(playRound(playerSelection, computerSelection));
+    }
+}
+
+
+
+playGame();
