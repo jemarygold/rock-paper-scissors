@@ -53,13 +53,13 @@ function playGame() {
 
 
 
-    for (i=1; i<= numberOfGames; i++) {
+    // for (i=1; i<= numberOfGames; i++) {
 
         const playerSelection = getPlayerSelection();
         const computerSelection = getComputerChoice();
 
         console.log(playRound(playerSelection, computerSelection));
-    }
+    // }
 }
 
 
