@@ -1,5 +1,16 @@
 const items = ["Rock", "Paper", "Scissors"];
 
+const buttonElements = document.querySelectorAll('button')
+
+
+buttonElements.forEach(function (buttonElement) {
+    buttonElement.addEventListener('click', function() {
+        console.log("clicked")
+        const playerChoice = buttonElement.innerText;
+        console.log(playRound(playerChoice, getComputerChoice()));
+    });
+});
+
 function getComputerChoice() {
     const random = Math.floor(Math.random() * items.length);
 
@@ -64,4 +75,6 @@ function playGame() {
 
 
 
-playGame();
+
+
+// playGame();
