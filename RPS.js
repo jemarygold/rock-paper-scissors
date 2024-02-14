@@ -1,16 +1,5 @@
 const items = ["Rock", "Paper", "Scissors"];
 
-const buttonElements = document.querySelectorAll('button')
-
-
-buttonElements.forEach(function (buttonElement) {
-    buttonElement.addEventListener('click', function() {
-        console.log("clicked")
-        const playerChoice = buttonElement.innerText;
-        console.log(playRound(playerChoice, getComputerChoice()));
-    });
-});
-
 function getComputerChoice() {
     const random = Math.floor(Math.random() * items.length);
 
@@ -46,15 +35,17 @@ function getPlayerSelection() {
 }
 
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection, playerScore=0, computerScore=0) {
     if ((playerSelection === "Rock" && computerSelection === "Scissors")
         || (playerSelection === "Paper" && computerSelection === "Rock")
         || (playerSelection === "Scissors" && computerSelection === "Paper")) {
-            return "Congrats, you win!";
+            playerScore += 1;
+            return [`Congrats, you win this round! ${playerSelection} beats ${computerSelection}. Player: ${playerScore} Computer: ${computerScore}`, playerScore, computerScore];
     } else if (playerSelection === computerSelection) {
-        return "It's a draw!";
+        return [`It's a draw! You both chose ${playerSelection} Player: ${playerScore} Computer: ${computerScore}` , playerScore, computerScore];
     } else {
-        return `You Lose! ${computerSelection} beats ${playerSelection}`;
+        computerScore += 1;
+        return [`You Lose this round! ${computerSelection} beats ${playerSelection}. Player: ${playerScore} Computer: ${computerScore}`, playerScore, computerScore];
     }   
 }
 
@@ -72,6 +63,27 @@ function playGame() {
         console.log(playRound(playerSelection, computerSelection));
     // }
 }
+
+const buttonElements = document.querySelectorAll('button');
+
+let playerScore = 0;
+let computerScore = 0;
+
+buttonElements.forEach(function (buttonElement) {
+    buttonElement.addEventListener('click', function() {
+
+        const playerChoice = buttonElement.innerText;
+        const gameResultMessage = document.querySelector(".game-resul");
+        [gameResultMessage.innerText, playerScore, computerScore] = playRound(playerChoice, getComputerChoice(), playerScore, computerScore);
+
+        if(playerScore == 5) {
+            gameResultMessage.innerText = `Congratulations you're the first to win ${playerScore} games!`
+        } else if (computerScore == 5){
+            gameResultMessage.innerText = `Unlucky! The computer was first to win ${computerScore} games!`
+
+        }
+    });
+});
 
 
 
